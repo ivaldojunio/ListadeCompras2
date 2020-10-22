@@ -1,6 +1,5 @@
 package com.example.listadecompras;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,47 +7,44 @@ import android.os.Bundle;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.listadecompras.constantes.CODIGO_SOLICITA_SALVAR_PRODUTO;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private String entrar;
-    private String cadastro;
-    private String cliqueBotao;
-    private FloatingActionButton formNovoGasto;
-    private String CODIGO_SOLICITA_CHAVE_SALVA_GASTO;
 
+    private static final int CODIGO_SOLICITA_SALVA_PRODUTO = 1;
+    private FloatingActionButton formNovoProduto;
+    private String CODIGO_SOLICITA_CHAVE_SALVA_GASTO;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        cliqueBotao();
+
+        List<Produto> listaDeProduto = new ArrayList<>();
+        listaDeProduto.add(new Produto("feijao", "gama lopes"));
+        listaDeProduto.add(new Produto("feijao", "gama lopes"));
+        listaDeProduto.add(new Produto("feijao", "gama lopes"));
     }
 
-    public MainActivity() {
-        super();
+
+    private void cliqueBotao() {
+        formNovoProduto = findViewById(R.id.fabNovoProduto);
+
+        formNovoProduto.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FormProdutoActivity.class);
+                startActivityForResult(intent, CODIGO_SOLICITA_SALVA_PRODUTO);
+                cliqueBotao();
+            }
+        });
     }
-
-    private void CliqueBotao(){
-     formNovoGasto = findViewById(R.id.formNovoGasto);
-
-     formNovoGasto.setOnClickListener(new View.OnClickListener() {
-
-         @Override
-         public void onClick(View v) {
-          //   Class<?> formNovoGastoApp;
-             Intent intent = new Intent(getApplicationContext(), formNovoGastoApp.class);
-             startActivityForResult(intent, Integer.parseInt(CODIGO_SOLICITA_CHAVE_SALVA_GASTO));
-             cliqueBotao();
-         }
-
-         private void cliqueBotao() {
-         }
-     });
-        protected void onActivityResult(int requestCode,int resultCode, @Nullable Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-
-
-
-}
 }
